@@ -1,0 +1,96 @@
+package com.company.payload;
+
+import lombok.Data;
+
+import java.time.LocalDateTime;
+
+@Data
+public class BannerResponse {
+    private Long id;
+    private String title;
+    private String description;
+    private String imageBase64;
+    private boolean active;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+    private Long userId;
+
+    /*public BannerResponse(Long id, String title, String description, String image, boolean active,
+                          LocalDateTime createdAt, LocalDateTime updatedAt, String username) {
+
+    }*/
+
+    public BannerResponse(Long id, String title, String description, String base64Image, boolean active) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.imageBase64 = getImageBase64();
+        this.active = active;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getImageBase64() {
+        return imageBase64;
+    }
+
+    public void setImageBase64(String imageBase64) {
+        this.imageBase64 = imageBase64;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+}

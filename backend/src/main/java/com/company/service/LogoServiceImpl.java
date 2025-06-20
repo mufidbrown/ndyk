@@ -1,0 +1,128 @@
+package com.company.service;
+
+import com.company.dto.LogoResponseDTO;
+import com.company.entity.Logo;
+import com.company.entity.User;
+import com.company.repository.LogoRepository;
+import com.company.repository.UserRepository;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.Base64;
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Service
+public class LogoServiceImpl implements LogoService {
+
+    private final LogoRepository logoRepository;
+    private final UserRepository userRepository;
+
+    public LogoServiceImpl(LogoRepository logoRepository, UserRepository userRepository) {
+        this.logoRepository = logoRepository;
+        this.userRepository = userRepository;
+    }
+
+    @Override
+    public LogoResponseDTO uploadLogo(MultipartFile file) throws IOException {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        Logo logo = new Logo();
+        logo.setImage(file.getBytes());
+        logo.setActive(true);
+        logo.setCreatedAt(LocalDateTime.now());
+        logo.setUpdatedAt(LocalDateTime.now());
+        logo.setUser(user);
+
+        Logo saved = logoRepository.save(logo);
+
+        return new LogoResponseDTO(
+                saved.getId(),
+                Base64.getEncoder().encodeToString(saved.getImage()),
+                saved.isActive(),
+                saved.getCreatedAt(),
+                saved.getUpdatedAt(),
+                saved.getUser().getId()
+        );
+    }
+
+    @Override
+    public List<LogoResponseDTO> getAllLogos() {
+        return logoRepository.findAll().stream().map(logo -> new LogoResponseDTO(
+                logo.getId(),
+                Base64.getEncoder().encodeToString(logo.getImage()),
+                logo.isActive(),
+                logo.getCreatedAt(),
+                logo.getUpdatedAt(),
+                logo.getUser().getId()
+        )).collect(Collectors.toList());
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public LogoResponseDTO getLogoById(Long id) {
+        Logo logo = logoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Logo not found with id: " + id));
+        return mapToDTO(logo);
+    }
+
+    @Transactional
+    public LogoResponseDTO updateLogo(Long id, MultipartFile file, Long userId) {
+        Logo logo = logoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Logo not found"));
+
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        try {
+            logo.setImage(file.getBytes());
+            logo.setContentType(file.getContentType());
+            logo.setUser(user);
+            logo.setUpdatedAt(LocalDateTime.now());
+
+            logoRepository.save(logo);
+            return mapToDTO(logo);
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to update logo", e);
+        }
+    }
+
+    @Override
+    @Transactional
+    public LogoResponseDTO toggleLogoStatus(Long id, boolean active) {
+        Logo logo = logoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Logo not found with id: " + id));
+        logo.setActive(active);
+        logo.setUpdatedAt(LocalDateTime.now());
+        Logo updated = logoRepository.save(logo);
+        return mapToDTO(updated);
+    }
+
+    @Override
+    @Transactional
+    public void deleteLogo(Long id) {
+        if (!logoRepository.existsById(id)) {
+            throw new RuntimeException("Logo not found with id: " + id);
+        }
+        logoRepository.deleteById(id);
+    }
+
+    private LogoResponseDTO mapToDTO(Logo logo) {
+        return new LogoResponseDTO(
+                logo.getId(),
+                "data:" + logo.getContentType() + ";base64," + Base64.getEncoder().encodeToString(logo.getImage()),
+                logo.isActive(),
+                logo.getCreatedAt(),
+                logo.getUpdatedAt(),
+                logo.getUser().getId()
+        );
+    }
+}
