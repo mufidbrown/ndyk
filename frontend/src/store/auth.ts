@@ -82,7 +82,7 @@ export const useAuthStore = defineStore('auth', () => {
       toast.success('Login successful!')
 
       // router.push(user.value.role === 'admin' ? '/admin' : '/')
-      router.push('/admin')
+      router.push('/admin') //ini update 7 malam
 
     } catch (error: any) {
       toast.error(error.message || 'Login failed')

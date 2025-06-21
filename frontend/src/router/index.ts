@@ -15,7 +15,9 @@ import Contact from '../pages/public/Contact.vue'
 // Admin Layout and Pages
 import AdminLayout from '../layouts/AdminLayout.vue'
 import Dashboard from '../pages/admin/Dashboard.vue'
+import HomeContent from '../pages/admin/HomeContent.vue'
 import Content from '../pages/admin/Content.vue'
+import Portofolio from '../pages/admin/Portofolio.vue'
 import Users from '../pages/admin/Users.vue'
 import Settings from '../pages/admin/Settings.vue'
 
@@ -94,9 +96,19 @@ const routes = [
         component: Dashboard
       },
       {
+        path: 'home-content',
+        name: 'HomeContent',
+        component: HomeContent
+      },
+      {
         path: 'content',
         name: 'AdminContent',
         component: Content
+      },
+      {
+        path: 'portofolio',
+        name: 'AdminPortofolio',
+        component: Portofolio
       },
       {
         path: 'users',

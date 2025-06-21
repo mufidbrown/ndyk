@@ -3,12 +3,12 @@
     <!-- Header -->
     <div class="flex justify-between items-center mb-8">
       <div>
-        <h1 class="text-3xl font-bold text-gray-900 mb-2">Content Management</h1>
+        <h1 class="text-3xl font-bold text-gray-900 mb-2">Portofolio Management</h1>
         <p class="text-gray-600">Manage all website content from this central dashboard.</p>
       </div>
       <button @click="showCreateModal = true" class="btn-primary">
         <PlusIcon class="w-5 h-5 mr-2" />
-        Add Content
+        Add Portofolio
       </button>
     </div>
 

@@ -199,6 +199,16 @@ const quickActions = [
     icon: PlusIcon
   },
   {
+    title: 'Add Home Content',
+    href: '/admin/home-content',
+    icon: PlusIcon
+  },
+  {
+    title: 'Add Portofolio',
+    href: '/admin/portofolio',
+    icon: PlusIcon
+  },
+  {
     title: 'Edit Homepage',
     href: '/admin/content',
     icon: PencilIcon
