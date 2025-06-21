@@ -111,7 +111,9 @@ import {
   CogIcon,
   ArrowRightOnRectangleIcon,
   ChevronDownIcon,
-  GlobeAltIcon
+  GlobeAltIcon,
+  InformationCircleIcon,
+  PhotoIcon
 } from '@heroicons/vue/24/outline'
 import { useAuthStore } from '../store/auth'
 
@@ -121,11 +123,14 @@ const authStore = useAuthStore()
 const sidebarOpen = ref(false)
 const userMenuOpen = ref(false)
 
+// WrenchScrewdriverIcon
 const navigation = [
   { name: 'Dashboard', href: '/admin', icon: ChartBarIcon },
   { name: 'Home Content', href: '/admin/home-content', icon: GlobeAltIcon },
-  { name: 'Content', href: '/admin/content', icon: DocumentTextIcon },
-  { name: 'Portfolio', href: '/admin/portofolio', icon: DocumentTextIcon },
+  { name: 'About Content', href: '/admin/about-content', icon: InformationCircleIcon },
+  { name: 'Services', href: '/admin/services-content', icon: InformationCircleIcon }, 
+  { name: 'Content', href: '/admin/content', icon: PhotoIcon },
+  { name: 'Portofolio', href: '/admin/portofolio', icon: PhotoIcon },
   { name: 'Users', href: '/admin/users', icon: UsersIcon },
   { name: 'Settings', href: '/admin/settings', icon: CogIcon }
 ]

@@ -40,7 +40,7 @@
     <!-- Quick Actions -->
     <div class="mb-8">
       <h2 class="text-xl font-semibold text-gray-900 mb-4">Quick Actions</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         <router-link
           v-for="action in quickActions"
           :key="action.title"
@@ -75,12 +75,11 @@
               <div class="ml-4 flex-1">
                 <p class="text-sm text-gray-900">{{ activity.description }}</p>
                 <p class="text-xs text-gray-500 mt-1">{{ activity.time }}</p>
-              
               </div>
             </div>
           </div>
           <div class="mt-6">
-            <router-link to="/admin/content" class="text-sm font-medium text-primary-600 hover:text-primary-500">
+            <router-link to="/admin/about-content" class="text-sm font-medium text-primary-600 hover:text-primary-500">
               View all activity →
             </router-link>
           </div>
@@ -109,7 +108,7 @@
             </div>
           </div>
           <div class="mt-6">
-            <router-link to="/admin/content" class="text-sm font-medium text-primary-600 hover:text-primary-500">
+            <router-link to="/admin/about-content" class="text-sm font-medium text-primary-600 hover:text-primary-500">
               Manage content →
             </router-link>
           </div>
@@ -155,7 +154,7 @@ import {
   ArrowDownIcon,
   HomeIcon,
   BuildingOfficeIcon,
-  WrenchScrewdriverIcon
+  InformationCircleIcon
 } from '@heroicons/vue/24/outline'
 import { useAuthStore } from '../../store/auth'
 
@@ -164,15 +163,15 @@ const authStore = useAuthStore()
 const stats = [
   {
     title: 'Total Content',
-    value: '24',
-    change: '+12%',
+    value: '12',
+    change: '+8%',
     changeType: 'increase',
     icon: DocumentTextIcon
   },
   {
     title: 'Page Views',
     value: '1,234',
-    change: '+8%',
+    change: '+12%',
     changeType: 'increase',
     icon: EyeIcon
   },
@@ -193,30 +192,45 @@ const stats = [
 ]
 
 const quickActions = [
-  {
-    title: 'Add Content',
-    href: '/admin/content',
+    {
+    title: 'Add Service',
+    href: '/admin/services',
     icon: PlusIcon
   },
   {
-    title: 'Add Home Content',
-    href: '/admin/home-content',
-    icon: PlusIcon
-  },
-  {
-    title: 'Add Portofolio',
-    href: '/admin/portofolio',
-    icon: PlusIcon
-  },
-  {
-    title: 'Edit Homepage',
-    href: '/admin/content',
+    title: 'Edit Content',
+    href: '/admin/services',
     icon: PencilIcon
   },
   {
-    title: 'Upload Images',
-    href: '/admin/content',
+    title: 'Manage Images',
+    href: '/admin/services',
     icon: PhotoIcon
+  },
+  {
+    title: 'Edit About Content',
+    href: '/admin/about-content',
+    icon: InformationCircleIcon
+  },
+  {
+    title: 'Edit Home Content',
+    href: '/admin/home-content',
+    icon: HomeIcon
+  },
+  {
+    title: 'Manage Portofolio',
+    href: '/admin/portofolio',
+    icon: PhotoIcon
+  },
+  {
+    title: 'Upload Images',
+    href: '/admin/portofolio',
+    icon: PhotoIcon
+  },
+  {
+    title: 'User Management',
+    href: '/admin/users',
+    icon: UsersIcon
   },
   {
     title: 'Settings',
@@ -228,30 +242,30 @@ const quickActions = [
 const recentActivity = [
   {
     id: 1,
-    description: 'Homepage hero section updated',
+    description: 'About page content updated',
     time: '2 hours ago',
     icon: PencilIcon,
     iconBg: 'bg-blue-500'
   },
   {
     id: 2,
-    description: 'New portfolio item added',
+    description: 'New team member added',
     time: '4 hours ago',
     icon: PlusIcon,
     iconBg: 'bg-green-500'
   },
   {
     id: 3,
-    description: 'Contact form submission received',
+    description: 'Company values updated',
     time: '6 hours ago',
-    icon: ChatBubbleLeftRightIcon,
+    icon: DocumentTextIcon,
     iconBg: 'bg-yellow-500'
   },
   {
     id: 4,
-    description: 'About page content modified',
+    description: 'Hero section modified',
     time: '1 day ago',
-    icon: DocumentTextIcon,
+    icon: PencilIcon,
     iconBg: 'bg-purple-500'
   }
 ]
@@ -259,31 +273,31 @@ const recentActivity = [
 const contentOverview = [
   {
     type: 'hero',
-    label: 'Hero Sections',
-    count: 3,
+    label: 'Hero Section',
+    count: 1,
     status: 'active',
     icon: HomeIcon
   },
   {
-    type: 'services',
-    label: 'Service Items',
-    count: 8,
+    type: 'story',
+    label: 'Company Story',
+    count: 1,
+    status: 'active',
+    icon: DocumentTextIcon
+  },
+  {
+    type: 'team',
+    label: 'Team Members',
+    count: 3,
+    status: 'active',
+    icon: UsersIcon
+  },
+  {
+    type: 'values',
+    label: 'Company Values',
+    count: 4,
     status: 'active',
     icon: BuildingOfficeIcon
-  },
-  {
-    type: 'portfolio',
-    label: 'Portfolio Items',
-    count: 12,
-    status: 'active',
-    icon: PhotoIcon
-  },
-  {
-    type: 'testimonials',
-    label: 'Testimonials',
-    count: 6,
-    status: 'pending',
-    icon: ChatBubbleLeftRightIcon
   }
 ]
 
