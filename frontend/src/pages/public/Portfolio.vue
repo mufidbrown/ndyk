@@ -4,10 +4,10 @@
     <section class="bg-gradient-to-r from-primary-600 to-primary-800 py-16">
       <div class="max-w-7xl mx-auto section-padding text-center">
         <h1 class="text-4xl lg:text-5xl font-bold text-white mb-6">
-          Our Portfolio
+          {{ contentStore.heroContent.title }}
         </h1>
         <p class="text-xl text-primary-100 max-w-3xl mx-auto">
-          Discover our completed projects and see the quality of work that sets us apart.
+          {{ contentStore.heroContent.description }}
         </p>
       </div>
     </section>
@@ -17,7 +17,7 @@
       <div class="max-w-7xl mx-auto section-padding">
         <div class="flex flex-wrap justify-center space-x-1">
           <button
-            v-for="category in categories"
+            v-for="category in portfolioStore.categories"
             :key="category.key"
             @click="activeCategory = category.key"
             class="px-6 py-3 text-sm font-medium rounded-lg transition-colors duration-200"
@@ -71,14 +71,6 @@
             </div>
           </div>
         </div>
-        
-        <!-- Load More Button -->
-        <div class="text-center mt-12">
-          <button class="btn-primary">
-            Load More Projects
-            <ArrowDownIcon class="w-5 h-5 ml-2" />
-          </button>
-        </div>
       </div>
     </section>
 
@@ -91,7 +83,7 @@
         </div>
         
         <div class="grid grid-cols-2 lg:grid-cols-4 gap-8">
-          <div v-for="stat in stats" :key="stat.label" class="text-center">
+          <div v-for="stat in portfolioStore.stats" :key="stat.label" class="text-center">
             <div class="text-4xl font-bold text-primary-600 mb-2">{{ stat.value }}</div>
             <div class="text-gray-600 font-medium">{{ stat.label }}</div>
           </div>
@@ -172,6 +164,17 @@
         </div>
       </div>
     </div>
+
+    <!-- Admin Access Button -->
+    <div class="fixed bottom-6 right-6">
+      <router-link
+        to="/admin"
+        class="inline-flex items-center px-4 py-2 bg-gray-900 text-white rounded-lg shadow-lg hover:bg-gray-800 transition-colors duration-200"
+      >
+        <CogIcon class="w-5 h-5 mr-2" />
+        Admin Panel
+      </router-link>
+    </div>
   </div>
 </template>
 
@@ -181,147 +184,24 @@ import {
   EyeIcon,
   XMarkIcon,
   CheckIcon,
-  ArrowDownIcon
+  CogIcon
 } from '@heroicons/vue/24/outline'
+import { usePortfolioStore } from '../../store/portfolio'
 
+// import { usePortfolioStore } from '../store/portfolio'
+import { useContentStore } from '../../store/content'
+
+const portfolioStore = usePortfolioStore()
+const contentStore = useContentStore()
 const activeCategory = ref('all')
 const selectedProject = ref(null)
 
-const categories = [
-  { key: 'all', name: 'All Projects' },
-  { key: 'civil', name: 'Civil Construction' },
-  { key: 'plumbing', name: 'Plumbing' },
-  { key: 'interior', name: 'Interior Design' }
-]
-
-const projects = [
-  {
-    id: 1,
-    title: 'Modern Residential Complex',
-    description: 'Complete construction of a 50-unit residential complex with modern amenities.',
-    fullDescription: 'This project involved the complete construction of a modern residential complex featuring 50 units across 5 buildings. The project included foundation work, structural construction, plumbing, electrical, and interior finishing.',
-    category: 'Civil Construction',
-    categoryKey: 'civil',
-    image: 'https://images.pexels.com/photos/1105766/pexels-photo-1105766.jpeg?auto=compress&cs=tinysrgb&w=600',
-    location: 'Downtown District',
-    year: '2023',
-    duration: '18 months',
-    features: [
-      'Reinforced concrete structure',
-      'Modern architectural design',
-      'Energy-efficient systems',
-      'Underground parking',
-      'Landscaped gardens'
-    ]
-  },
-  {
-    id: 2,
-    title: 'Luxury Hotel Plumbing System',
-    description: 'Complete plumbing installation for a 200-room luxury hotel.',
-    fullDescription: 'Comprehensive plumbing system installation for a luxury hotel including water supply, drainage, fire protection systems, and spa facilities. The project required precision and adherence to hospitality industry standards.',
-    category: 'Plumbing',
-    categoryKey: 'plumbing',
-    image: 'https://images.pexels.com/photos/8292774/pexels-photo-8292774.jpeg?auto=compress&cs=tinysrgb&w=600',
-    location: 'Business District',
-    year: '2023',
-    duration: '12 months',
-    features: [
-      'Multi-zone water systems',
-      'Advanced drainage solutions',
-      'Fire suppression systems',
-      'Spa facility plumbing',
-      'Emergency backup systems'
-    ]
-  },
-  {
-    id: 3,
-    title: 'Executive Office Interior',
-    description: 'Complete interior design and renovation of a corporate headquarters.',
-    fullDescription: 'Full interior design and renovation project for a corporate headquarters spanning 10,000 sq ft. The design focused on creating a modern, functional workspace that promotes productivity and collaboration.',
-    category: 'Interior Design',
-    categoryKey: 'interior',
-    image: 'https://images.pexels.com/photos/1571452/pexels-photo-1571452.jpeg?auto=compress&cs=tinysrgb&w=600',
-    location: 'Financial District',
-    year: '2022',
-    duration: '8 months',
-    features: [
-      'Open concept workspace',
-      'Executive meeting rooms',
-      'Modern lighting systems',
-      'Custom furniture design',
-      'Smart building integration'
-    ]
-  },
-  {
-    id: 4,
-    title: 'Infrastructure Development',
-    description: 'Road construction and utility installation for new development.',
-    fullDescription: 'Major infrastructure project involving road construction, utility installation, and drainage systems for a new residential development. The project required coordination with multiple municipal departments.',
-    category: 'Civil Construction',
-    categoryKey: 'civil',
-    image: 'https://images.pexels.com/photos/834892/pexels-photo-834892.jpeg?auto=compress&cs=tinysrgb&w=600',
-    location: 'Suburban Area',
-    year: '2022',
-    duration: '24 months',
-    features: [
-      'Road construction',
-      'Utility installation',
-      'Storm drainage systems',
-      'Street lighting',
-      'Landscaping'
-    ]
-  },
-  {
-    id: 5,
-    title: 'Restaurant Kitchen Systems',
-    description: 'Commercial kitchen plumbing and utility installation.',
-    fullDescription: 'Specialized plumbing and utility installation for a high-end restaurant kitchen. The project included grease traps, commercial dishwasher connections, and specialized drainage systems.',
-    category: 'Plumbing',
-    categoryKey: 'plumbing',
-    image: 'https://images.pexels.com/photos/8292774/pexels-photo-8292774.jpeg?auto=compress&cs=tinysrgb&w=600',
-    location: 'Entertainment District',
-    year: '2022',
-    duration: '6 months',
-    features: [
-      'Grease trap systems',
-      'Commercial dishwasher plumbing',
-      'Specialized drainage',
-      'Gas line installation',
-      'Water filtration systems'
-    ]
-  },
-  {
-    id: 6,
-    title: 'Luxury Home Interior',
-    description: 'Complete interior renovation of a luxury family home.',
-    fullDescription: 'Comprehensive interior renovation of a 5,000 sq ft luxury home including kitchen, bathrooms, living areas, and bedrooms. The design emphasized elegance, comfort, and functionality.',
-    category: 'Interior Design',
-    categoryKey: 'interior',
-    image: 'https://images.pexels.com/photos/1571452/pexels-photo-1571452.jpeg?auto=compress&cs=tinysrgb&w=600',
-    location: 'Upscale Neighborhood',
-    year: '2021',
-    duration: '10 months',
-    features: [
-      'Gourmet kitchen renovation',
-      'Master suite redesign',
-      'Custom built-ins',
-      'Luxury bathroom fixtures',
-      'Smart home integration'
-    ]
-  }
-]
-
-const stats = [
-  { value: '500+', label: 'Completed Projects' },
-  { value: '15+', label: 'Years Experience' },
-  { value: '98%', label: 'Client Satisfaction' },
-  { value: '50+', label: 'Expert Team Members' }
-]
-
 const filteredProjects = computed(() => {
   if (activeCategory.value === 'all') {
-    return projects
+    return portfolioStore.projects.filter(p => p.status === 'active')
   }
-  return projects.filter(project => project.categoryKey === activeCategory.value)
+  return portfolioStore.projects.filter(p => 
+    p.categoryKey === activeCategory.value && p.status === 'active'
+  )
 })
 </script>

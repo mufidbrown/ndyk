@@ -18,8 +18,11 @@ import Dashboard from '../pages/admin/Dashboard.vue'
 import HomeContent from '../pages/admin/HomeContent.vue'
 import AboutContent from '../pages/admin/AboutContent.vue'
 import ServiceContent from '../pages/admin/ServiceContent.vue'
-import Content from '../pages/admin/Content.vue'
-import Portofolio from '../pages/admin/Portofolio.vue'
+// import Content from '../pages/admin/Content.vue'
+import PortfolioManagement from '../pages/admin/PortfolioManagement.vue'
+import ContactManagement from '../pages/admin/ContactContent.vue'
+import ContentManagement from '../pages/admin/ContentManagement.vue'
+// import Portofolio from '../pages/admin/Portofolio.vue'
 import Users from '../pages/admin/Users.vue'
 import Settings from '../pages/admin/Settings.vue'
 
@@ -113,15 +116,35 @@ const routes = [
         component: ServiceContent
       },
       {
-        path: 'content',
-        name: 'AdminContent',
-        component: Content
+        path: 'portfolio',
+        name: 'PortfolioManagement',
+        component: PortfolioManagement
       },
       {
-        path: 'portofolio',
-        name: 'AdminPortofolio',
-        component: Portofolio
+        path: 'contact-content',
+        name: 'ContactContent',
+        component: ContactManagement
       },
+      // {
+      //   path: 'contact',
+      //   name: 'Contact',
+      //   component: ContactManagement
+      // },
+      {
+        path: 'content',
+        name: 'ContentManagement',
+        component: ContentManagement 
+      },
+      // {
+      //   path: 'content',
+      //   name: 'AdminContent',
+      //   component: Content
+      // },
+      // {
+      //   path: 'portofolio',
+      //   name: 'AdminPortofolio',
+      //   component: Portofolio
+      // },
       {
         path: 'users',
         name: 'AdminUsers',

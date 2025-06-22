@@ -5,6 +5,7 @@ import router from './router'
 import App from './App.vue'
 import './styles/main.css'
 
+
 // Import the CSS for vue-toastification
 import 'vue-toastification/dist/index.css'
 

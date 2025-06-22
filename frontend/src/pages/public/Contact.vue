@@ -4,10 +4,10 @@
     <section class="bg-gradient-to-r from-primary-600 to-primary-800 py-16">
       <div class="max-w-7xl mx-auto section-padding text-center">
         <h1 class="text-4xl lg:text-5xl font-bold text-white mb-6">
-          Contact Us
+          {{ contactStore.content.hero.title }}
         </h1>
         <p class="text-xl text-primary-100 max-w-3xl mx-auto">
-          Ready to start your project? Get in touch with us for a free consultation and quote.
+          {{ contactStore.content.hero.description }}
         </p>
       </div>
     </section>
@@ -18,9 +18,11 @@
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
           <!-- Contact Form -->
           <div>
-            <h2 class="text-3xl font-bold text-gray-900 mb-6">Get a Free Quote</h2>
+            <h2 class="text-3xl font-bold text-gray-900 mb-6">
+              {{ contactStore.content.form.title }}
+            </h2>
             <p class="text-lg text-gray-600 mb-8">
-              Fill out the form below and we'll get back to you within 24 hours.
+              {{ contactStore.content.form.description }}
             </p>
             
             <form @submit.prevent="submitForm" class="space-y-6">
@@ -163,20 +165,63 @@
           
           <!-- Contact Information -->
           <div>
-            <h2 class="text-3xl font-bold text-gray-900 mb-6">Get in Touch</h2>
+            <h2 class="text-3xl font-bold text-gray-900 mb-6">
+              {{ contactStore.content.contactInfo.title }}
+            </h2>
             <p class="text-lg text-gray-600 mb-8">
-              We're here to help with all your construction needs. Reach out to us through any of the following channels.
+              {{ contactStore.content.contactInfo.description }}
             </p>
             
             <div class="space-y-6">
-              <div v-for="contact in contactInfo" :key="contact.title" class="flex items-start">
+              <div class="flex items-start">
                 <div class="flex-shrink-0 w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center mr-4">
-                  <component :is="contact.icon" class="w-6 h-6 text-primary-600" />
+                  <PhoneIcon class="w-6 h-6 text-primary-600" />
                 </div>
                 <div>
-                  <h3 class="text-lg font-semibold text-gray-900 mb-1">{{ contact.title }}</h3>
-                  <p class="text-gray-600">{{ contact.details }}</p>
-                  <p v-if="contact.extra" class="text-gray-600">{{ contact.extra }}</p>
+                  <h3 class="text-lg font-semibold text-gray-900 mb-1">
+                    {{ contactStore.content.contactInfo.phone.title }}
+                  </h3>
+                  <p class="text-gray-600">{{ contactStore.content.contactInfo.phone.details }}</p>
+                  <p class="text-gray-600">{{ contactStore.content.contactInfo.phone.extra }}</p>
+                </div>
+              </div>
+
+              <div class="flex items-start">
+                <div class="flex-shrink-0 w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center mr-4">
+                  <EnvelopeIcon class="w-6 h-6 text-primary-600" />
+                </div>
+                <div>
+                  <h3 class="text-lg font-semibold text-gray-900 mb-1">
+                    {{ contactStore.content.contactInfo.email.title }}
+                  </h3>
+                  <p class="text-gray-600">{{ contactStore.content.contactInfo.email.details }}</p>
+                  <p class="text-gray-600">{{ contactStore.content.contactInfo.email.extra }}</p>
+                </div>
+              </div>
+
+              <div class="flex items-start">
+                <div class="flex-shrink-0 w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center mr-4">
+                  <MapPinIcon class="w-6 h-6 text-primary-600" />
+                </div>
+                <div>
+                  <h3 class="text-lg font-semibold text-gray-900 mb-1">
+                    {{ contactStore.content.contactInfo.address.title }}
+                  </h3>
+                  <p class="text-gray-600">{{ contactStore.content.contactInfo.address.details }}</p>
+                  <p class="text-gray-600">{{ contactStore.content.contactInfo.address.extra }}</p>
+                </div>
+              </div>
+
+              <div class="flex items-start">
+                <div class="flex-shrink-0 w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center mr-4">
+                  <ClockIcon class="w-6 h-6 text-primary-600" />
+                </div>
+                <div>
+                  <h3 class="text-lg font-semibold text-gray-900 mb-1">
+                    {{ contactStore.content.contactInfo.serviceHours.title }}
+                  </h3>
+                  <p class="text-gray-600">{{ contactStore.content.contactInfo.serviceHours.details }}</p>
+                  <p class="text-gray-600">{{ contactStore.content.contactInfo.serviceHours.extra }}</p>
                 </div>
               </div>
             </div>
@@ -185,7 +230,7 @@
             <div class="mt-12 p-6 bg-gray-50 rounded-lg">
               <h3 class="text-xl font-semibold text-gray-900 mb-4">Business Hours</h3>
               <div class="space-y-2">
-                <div v-for="hour in businessHours" :key="hour.day" class="flex justify-between">
+                <div v-for="hour in contactStore.content.businessHours" :key="hour.day" class="flex justify-between">
                   <span class="text-gray-600">{{ hour.day }}</span>
                   <span class="font-medium text-gray-900">{{ hour.hours }}</span>
                 </div>
@@ -196,13 +241,15 @@
             <div class="mt-8 p-6 bg-accent-50 border border-accent-200 rounded-lg">
               <div class="flex items-center mb-3">
                 <ExclamationTriangleIcon class="w-6 h-6 text-accent-600 mr-2" />
-                <h3 class="text-lg font-semibold text-accent-900">Emergency Services</h3>
+                <h3 class="text-lg font-semibold text-accent-900">
+                  {{ contactStore.content.emergency.title }}
+                </h3>
               </div>
               <p class="text-accent-800 mb-2">
-                For plumbing emergencies and urgent repairs, call our 24/7 emergency line:
+                {{ contactStore.content.emergency.description }}
               </p>
-              <a href="tel:+1234567899" class="text-xl font-bold text-accent-600 hover:text-accent-700">
-                (123) 456-7899
+              <a :href="`tel:${contactStore.content.emergency.phone}`" class="text-xl font-bold text-accent-600 hover:text-accent-700">
+                {{ contactStore.content.emergency.phone }}
               </a>
             </div>
           </div>
@@ -214,16 +261,19 @@
     <section class="py-16 bg-gray-50">
       <div class="max-w-7xl mx-auto section-padding">
         <div class="text-center mb-12">
-          <h2 class="text-3xl font-bold text-gray-900 mb-4">Find Our Office</h2>
-          <p class="text-lg text-gray-600">Visit us at our headquarters or one of our service locations.</p>
+          <h2 class="text-3xl font-bold text-gray-900 mb-4">
+            {{ contactStore.content.map.title }}
+          </h2>
+          <p class="text-lg text-gray-600">
+            {{ contactStore.content.map.description }}
+          </p>
         </div>
         
-        <!-- Placeholder for map - In real implementation, you would integrate with Google Maps or similar -->
         <div class="bg-gray-200 rounded-lg h-96 flex items-center justify-center">
           <div class="text-center">
             <MapPinIcon class="w-16 h-16 text-gray-400 mx-auto mb-4" />
             <p class="text-gray-600">Interactive map would be integrated here</p>
-            <p class="text-sm text-gray-500">123 Construction Ave, Builder City, BC 12345</p>
+            <p class="text-sm text-gray-500">{{ contactStore.content.map.address }}</p>
           </div>
         </div>
       </div>
@@ -241,7 +291,9 @@ import {
   ClockIcon,
   ExclamationTriangleIcon
 } from '@heroicons/vue/24/outline'
+import { useContactStore } from '../../store/contact'
 
+const contactStore = useContactStore()
 const toast = useToast()
 const isSubmitting = ref(false)
 
@@ -256,39 +308,6 @@ const form = ref({
   message: ''
 })
 
-const contactInfo = [
-  {
-    title: 'Phone',
-    details: '(123) 456-7890',
-    extra: 'Mon - Fri, 8AM - 6PM',
-    icon: PhoneIcon
-  },
-  {
-    title: 'Email',
-    details: 'info@contractorpro.com',
-    extra: 'We respond within 24 hours',
-    icon: EnvelopeIcon
-  },
-  {
-    title: 'Office Address',
-    details: '123 Construction Avenue',
-    extra: 'Builder City, BC 12345',
-    icon: MapPinIcon
-  },
-  {
-    title: 'Service Hours',
-    details: 'Monday - Friday: 8AM - 6PM',
-    extra: 'Saturday: 9AM - 4PM',
-    icon: ClockIcon
-  }
-]
-
-const businessHours = [
-  { day: 'Monday - Friday', hours: '8:00 AM - 6:00 PM' },
-  { day: 'Saturday', hours: '9:00 AM - 4:00 PM' },
-  { day: 'Sunday', hours: 'Emergency Only' }
-]
-
 const submitForm = async () => {
   try {
     isSubmitting.value = true
@@ -296,7 +315,6 @@ const submitForm = async () => {
     // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 2000))
     
-    // In real implementation, you would send data to backend
     console.log('Form submitted:', form.value)
     
     toast.success('Message sent successfully! We\'ll get back to you within 24 hours.')
