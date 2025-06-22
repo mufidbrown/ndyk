@@ -4,6 +4,10 @@ import Toast from 'vue-toastification'
 import router from './router'
 import App from './App.vue'
 import './styles/main.css'
+import './style.css'
+
+
+
 
 
 // Import the CSS for vue-toastification
