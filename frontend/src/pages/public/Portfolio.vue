@@ -166,7 +166,7 @@
     </div>
 
     <!-- Admin Access Button -->
-    <div class="fixed bottom-6 right-6">
+    <!-- <div class="fixed bottom-6 right-6">
       <router-link
         to="/admin"
         class="inline-flex items-center px-4 py-2 bg-gray-900 text-white rounded-lg shadow-lg hover:bg-gray-800 transition-colors duration-200"
@@ -174,7 +174,7 @@
         <CogIcon class="w-5 h-5 mr-2" />
         Admin Panel
       </router-link>
-    </div>
+    </div> -->
   </div>
 </template>
 
