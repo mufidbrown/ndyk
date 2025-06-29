@@ -24,11 +24,15 @@
             </div>
           </div>
           <div class="relative">
-            <img
-              :src="homeStore.heroContent.heroImage"
-              alt="Construction site"
-              class="rounded-lg shadow-2xl"
-            />
+            <!-- Fixed dimensions hero image container -->
+            <div class="w-full h-96 lg:h-[500px] rounded-lg shadow-2xl overflow-hidden bg-gray-200">
+              <img
+                :src="homeStore.heroContent.heroImage"
+                alt="Construction site"
+                class="w-full h-full object-cover transition-all duration-300 hover:scale-105"
+                @error="handleImageError"
+              />
+            </div>
             <div class="absolute -bottom-6 -left-6 bg-white p-6 rounded-lg shadow-lg">
               <div class="flex items-center space-x-4">
                 <div class="bg-primary-100 p-3 rounded-full">
@@ -119,14 +123,19 @@
           </div>
           
           <div class="grid grid-cols-2 gap-4">
-            <img
+            <div
               v-for="(image, index) in homeStore.galleryImages"
               :key="image.id"
-              :src="image.url"
-              :alt="image.alt"
-              class="rounded-lg shadow-lg"
+              class="w-full h-48 rounded-lg shadow-lg overflow-hidden bg-gray-200"
               :class="index === 1 ? 'mt-8' : index === 2 ? '-mt-8' : ''"
-            />
+            >
+              <img
+                :src="image.url"
+                :alt="image.alt"
+                class="w-full h-full object-cover transition-all duration-300 hover:scale-105"
+                @error="handleGalleryImageError"
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -181,5 +190,15 @@ const iconMap = {
 
 const getIconComponent = (iconName: string) => {
   return iconMap[iconName as keyof typeof iconMap] || HomeIcon
+}
+
+const handleImageError = (event: Event) => {
+  const target = event.target as HTMLImageElement
+  target.src = 'https://images.pexels.com/photos/1105766/pexels-photo-1105766.jpeg?auto=compress&cs=tinysrgb&w=800'
+}
+
+const handleGalleryImageError = (event: Event) => {
+  const target = event.target as HTMLImageElement
+  target.src = 'https://images.pexels.com/photos/834892/pexels-photo-834892.jpeg?auto=compress&cs=tinysrgb&w=400'
 }
 </script>
