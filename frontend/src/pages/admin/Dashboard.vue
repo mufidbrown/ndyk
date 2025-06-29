@@ -57,7 +57,7 @@
       </div>
     </div>
 
-    <!-- Recent Activity & Content Overview -->
+    <!-- Content Overview -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
       <!-- Recent Activity -->
       <div class="card">
@@ -77,11 +77,6 @@
                 <p class="text-xs text-gray-500 mt-1">{{ activity.time }}</p>
               </div>
             </div>
-          </div>
-          <div class="mt-6">
-            <router-link to="/admin/portfolio" class="text-sm font-medium text-primary-600 hover:text-primary-500">
-              View all activity →
-            </router-link>
           </div>
         </div>
       </div>
@@ -108,7 +103,7 @@
             </div>
           </div>
           <div class="mt-6">
-            <router-link to="/admin/portfolio" class="text-sm font-medium text-primary-600 hover:text-primary-500">
+            <router-link to="/admin/home-content" class="text-sm font-medium text-primary-600 hover:text-primary-500">
               Manage content →
             </router-link>
           </div>
@@ -143,19 +138,15 @@
 <script setup lang="ts">
 import {
   DocumentTextIcon,
-  UsersIcon,
   EyeIcon,
-  ChatBubbleLeftRightIcon,
+  PhotoIcon,
   PlusIcon,
   PencilIcon,
-  PhotoIcon,
-  CogIcon,
   ArrowUpIcon,
   ArrowDownIcon,
   HomeIcon,
-  BuildingOfficeIcon,
-  InformationCircleIcon,
-  WrenchScrewdriverIcon
+  CheckIcon,
+  ChartBarIcon
 } from '@heroicons/vue/24/outline'
 import { useAuthStore } from '../../store/auth'
 
@@ -163,11 +154,11 @@ const authStore = useAuthStore()
 
 const stats = [
   {
-    title: 'Total Projects',
-    value: '12',
-    change: '+8%',
+    title: 'Home Sections',
+    value: '6',
+    change: '+2%',
     changeType: 'increase',
-    icon: DocumentTextIcon
+    icon: HomeIcon
   },
   {
     title: 'Page Views',
@@ -178,83 +169,63 @@ const stats = [
   },
   {
     title: 'Active Content',
-    value: '89',
+    value: '15',
     change: '+5%',
     changeType: 'increase',
     icon: PhotoIcon
   },
   {
-    title: 'Team Members',
-    value: '12',
-    change: '+2%',
+    title: 'System Health',
+    value: '100%',
+    change: '0%',
     changeType: 'increase',
-    icon: UsersIcon
+    icon: ChartBarIcon
   }
 ]
 
 const quickActions = [
-  {
-    title: 'Add New Project',
-    href: '/admin/portfolio',
-    icon: PlusIcon
-  },
   {
     title: 'Edit Home Content',
     href: '/admin/home-content',
     icon: HomeIcon
   },
   {
-    title: 'Edit About Content',
-    href: '/admin/about-content',
-    icon: InformationCircleIcon
+    title: 'Add New Service',
+    href: '/admin/home-content',
+    icon: PlusIcon
   },
   {
-    title: 'Manage Services',
-    href: '/admin/services-content',
-    icon: WrenchScrewdriverIcon
-  },
-  {
-    title: 'Manage Images',
-    href: '/admin/content',
+    title: 'Update Gallery',
+    href: '/admin/home-content',
     icon: PhotoIcon
-  },
-  {
-    title: 'User Management',
-    href: '/admin/users',
-    icon: UsersIcon
-  },
-  {
-    title: 'Settings',
-    href: '/admin/settings',
-    icon: CogIcon
   }
 ]
 
 const recentActivity = [
   {
     id: 1,
-    description: 'New project "Modern Office Complex" added',
+    description: 'Hero section content updated',
     time: '2 hours ago',
-    icon: PlusIcon,
+    icon: PencilIcon,
     iconBg: 'bg-green-500'
   },
   {
     id: 2,
-    description: 'About page content updated',
+    description: 'New service added to homepage',
     time: '4 hours ago',
-    icon: PencilIcon,
+    icon: PlusIcon,
     iconBg: 'bg-blue-500'
   },
   {
     id: 3,
-    description: 'New team member added',
+    description: 'Gallery images updated',
     time: '6 hours ago',
-    icon: UsersIcon,
+    icon: PhotoIcon,
     iconBg: 'bg-purple-500'
   },
   {
     id: 4,
-    description: 'Hero section modified',
+    description: 'CTA section modified',
     time: '1 day ago',
     icon: PencilIcon,
     iconBg: 'bg-yellow-500'
@@ -270,25 +241,25 @@ const contentOverview = [
     icon: HomeIcon
   },
   {
-    type: 'projects',
-    label: 'Portfolio Projects',
-    count: 3,
-    status: 'active',
-    icon: PhotoIcon
-  },
-  {
-    type: 'team',
-    label: 'Team Members',
-    count: 3,
-    status: 'active',
-    icon: UsersIcon
-  },
-  {
     type: 'services',
     label: 'Services',
     count: 3,
     status: 'active',
-    icon: WrenchScrewdriverIcon
+    icon: CheckIcon
+  },
+  {
+    type: 'stats',
+    label: 'Statistics',
+    count: 4,
+    status: 'active',
+    icon: ChartBarIcon
+  },
+  {
+    type: 'gallery',
+    label: 'Gallery Images',
+    count: 4,
+    status: 'active',
+    icon: PhotoIcon
   }
 ]
 
@@ -302,7 +273,7 @@ const systemStatus = [
     status: 'operational'
   },
   {
-    name: 'File Storage',
+    name: 'Content Storage',
     status: 'operational'
   }
 ]
