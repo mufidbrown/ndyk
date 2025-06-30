@@ -103,7 +103,7 @@
             </div>
           </div>
           <div class="mt-6">
-            <router-link to="/admin/home-content" class="text-sm font-medium text-primary-600 hover:text-primary-500">
+            <router-link to="/admin/contact-content" class="text-sm font-medium text-primary-600 hover:text-primary-500">
               Manage content →
             </router-link>
           </div>
@@ -137,16 +137,16 @@
 
 <script setup lang="ts">
 import {
-  DocumentTextIcon,
+  PhoneIcon,
   EyeIcon,
-  PhotoIcon,
+  DocumentTextIcon,
   PlusIcon,
   PencilIcon,
   ArrowUpIcon,
   ArrowDownIcon,
-  HomeIcon,
   CheckIcon,
-  ChartBarIcon
+  ChartBarIcon,
+  ClockIcon
 } from '@heroicons/vue/24/outline'
 import { useAuthStore } from '../../store/auth'
 
@@ -154,11 +154,11 @@ const authStore = useAuthStore()
 
 const stats = [
   {
-    title: 'Home Sections',
-    value: '6',
+    title: 'Contact Sections',
+    value: '8',
     change: '+2%',
     changeType: 'increase',
-    icon: HomeIcon
+    icon: PhoneIcon
   },
   {
     title: 'Page Views',
@@ -172,7 +172,7 @@ const stats = [
     value: '15',
     change: '+5%',
     changeType: 'increase',
-    icon: PhotoIcon
+    icon: DocumentTextIcon
   },
   {
     title: 'System Health',
@@ -185,19 +185,19 @@ const stats = [
 
 const quickActions = [
   {
-    title: 'Edit Home Content',
-    href: '/admin/home-content',
-    icon: HomeIcon
+    title: 'Edit Contact Content',
+    href: '/admin/contact-content',
+    icon: PhoneIcon
   },
   {
-    title: 'Add New Service',
-    href: '/admin/home-content',
-    icon: PlusIcon
+    title: 'Update Business Hours',
+    href: '/admin/contact-content',
+    icon: ClockIcon
   },
   {
-    title: 'Update Gallery',
-    href: '/admin/home-content',
-    icon: PhotoIcon
+    title: 'Manage Contact Info',
+    href: '/admin/contact-content',
+    icon: PencilIcon
   }
 ]
 
@@ -211,21 +211,21 @@ const recentActivity = [
   },
   {
     id: 2,
-    description: 'New service added to homepage',
+    description: 'Contact information modified',
     time: '4 hours ago',
-    icon: PlusIcon,
+    icon: PhoneIcon,
     iconBg: 'bg-blue-500'
   },
   {
     id: 3,
-    description: 'Gallery images updated',
+    description: 'Business hours updated',
     time: '6 hours ago',
-    icon: PhotoIcon,
+    icon: ClockIcon,
     iconBg: 'bg-purple-500'
   },
   {
     id: 4,
-    description: 'CTA section modified',
+    description: 'Emergency contact modified',
     time: '1 day ago',
     icon: PencilIcon,
     iconBg: 'bg-yellow-500'
@@ -238,28 +238,28 @@ const contentOverview = [
     label: 'Hero Section',
     count: 1,
     status: 'active',
-    icon: HomeIcon
+    icon: DocumentTextIcon
   },
   {
-    type: 'services',
-    label: 'Services',
-    count: 3,
+    type: 'contact',
+    label: 'Contact Info',
+    count: 4,
+    status: 'active',
+    icon: PhoneIcon
+  },
+  {
+    type: 'hours',
+    label: 'Business Hours',
+    count: 7,
+    status: 'active',
+    icon: ClockIcon
+  },
+  {
+    type: 'emergency',
+    label: 'Emergency Contact',
+    count: 1,
     status: 'active',
     icon: CheckIcon
-  },
-  {
-    type: 'stats',
-    label: 'Statistics',
-    count: 4,
-    status: 'active',
-    icon: ChartBarIcon
-  },
-  {
-    type: 'gallery',
-    label: 'Gallery Images',
-    count: 4,
-    status: 'active',
-    icon: PhotoIcon
   }
 ]
 
@@ -273,7 +273,7 @@ const systemStatus = [
     status: 'operational'
   },
   {
-    name: 'Content Storage',
+    name: 'Contact Forms',
     status: 'operational'
   }
 ]
